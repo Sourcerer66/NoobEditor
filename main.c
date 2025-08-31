@@ -13,6 +13,10 @@ typedef struct Node{
 
 int get_lines(char *buffer);
 
+void create_node(int c);
+
+void append_node(node **head; int *c);
+
 int main(int argc, char **argv){
 	if(argc < 2){
 		perror("Sem argumentos suficientes...");
@@ -31,16 +35,15 @@ int main(int argc, char **argv){
 	fclose(f);
 	//colocar \0 no final do buffer...
 	int lines_buffer = get_lines(buffer);
-
+	int size_buffer = strlen(buffer);
 	node *arr[lines_buffer];
-	for(int i = 0; i < lines_buffer; ++i){
-		//tentando fazer esse loop que passa os caracteres para a linked list,
-		//onde cada linha do arquivo é uma linked list diferente
-		if(buffer[i] == '\n'){
-
+	int foo = 0;
+	for (int i = 0; i < size_buffer; ++i){
+		if (buffer[i] == '\n'){
+			foo++;
 		}
-	}
 
+	}
 	int current = 0;
 
 	initscr();
@@ -60,3 +63,24 @@ int get_lines(char *buffer){
         return x;
 }
 
+void create_node(int c){
+	node *new_node = (node*)malloc(sizeof(node));
+	new_node->data = c;
+	new_node->next = NULL;
+	new_node->prev = NULL;
+}
+
+void append_node(node **head; int *c){
+	node *new_node = create_node(c);
+	if(*head == NULL){
+		*head = new_node;
+		return;
+	}
+	node *temp = *head;
+	while(temp->next != NULL){
+		temp = temp->next;	
+	}
+	temp->next = new_node;
+	node *tpre = temp->next;
+	tpre->prev = temp;
+}
