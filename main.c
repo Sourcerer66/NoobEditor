@@ -15,7 +15,7 @@ int get_lines(char *buffer);
 
 void create_node(int c);
 
-void append_node(node **head; int *c);
+void append_node(node **head, int *c);
 
 int main(int argc, char **argv){
 	if(argc < 2){
@@ -42,6 +42,7 @@ int main(int argc, char **argv){
 		if (buffer[i] == '\n'){
 			foo++;
 		}
+		append_node(arr,buffer[i]);
 
 	}
 	int current = 0;
@@ -70,7 +71,7 @@ void create_node(int c){
 	new_node->prev = NULL;
 }
 
-void append_node(node **head; int *c){
+void append_node(node **head, int *c){
 	node *new_node = create_node(c);
 	if(*head == NULL){
 		*head = new_node;
@@ -81,6 +82,5 @@ void append_node(node **head; int *c){
 		temp = temp->next;	
 	}
 	temp->next = new_node;
-	node *tpre = temp->next;
-	tpre->prev = temp;
+	new_node->prev = temp;
 }
