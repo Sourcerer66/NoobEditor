@@ -13,9 +13,9 @@ typedef struct Node{
 
 int get_lines(char *buffer);
 
-void create_node(int c);
+node* create_node(int c);
 
-void append_node(node **head, int *c);
+void append_node(node **head, int c);
 
 int main(int argc, char **argv){
 	if(argc < 2){
@@ -48,7 +48,14 @@ int main(int argc, char **argv){
 	int current = 0;
 
 	initscr();
-
+	
+	for (int i=0; i < lines_buffer; ++i){
+		node *fakie = arr[i];
+		while(fakie->next != NULL){
+			printw("%c", fakie->data);
+			fakie = fakie->next;
+		}
+	}
 	
 	endwin();
 	return 0;
@@ -64,14 +71,15 @@ int get_lines(char *buffer){
         return x;
 }
 
-void create_node(int c){
+node* create_node(int c){
 	node *new_node = (node*)malloc(sizeof(node));
 	new_node->data = c;
 	new_node->next = NULL;
 	new_node->prev = NULL;
+	return new_node;
 }
 
-void append_node(node **head, int *c){
+void append_node(node **head, int c){
 	node *new_node = create_node(c);
 	if(*head == NULL){
 		*head = new_node;
