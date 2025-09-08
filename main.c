@@ -38,11 +38,12 @@ int main(int argc, char **argv){
 	int size_buffer = strlen(buffer);
 	node *arr[lines_buffer];
 	int foo = 0;
+	//essa loop esta super incompleto, irei chorar...
 	for (int i = 0; i < size_buffer; ++i){
+		append_node(arr[i],buffer[i]);
 		if (buffer[i] == '\n'){
 			foo++;
 		}
-		append_node(arr,buffer[i]);
 
 	}
 	int current = 0;
