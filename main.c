@@ -38,9 +38,9 @@ int main(int argc, char **argv){
 	int size_buffer = strlen(buffer);
 	node *arr[lines_buffer];
 	int foo = 0;
-	//ta mais completo mas falta algo ainda...
-	//continua dando erro!!!
+	//08/09/2025 EUREKAAAAA!!!!!
 	for (int i = 0; i < lines_buffer; ++i){
+		arr[i] = NULL;
 		while(buffer[foo] != '\n'){
 			append_node(&arr[i], buffer[foo]);
 			foo++;
@@ -58,7 +58,7 @@ int main(int argc, char **argv){
 			fakie = fakie->next;
 		}
 	}
-	
+	getch();	
 	endwin();
 	return 0;
 }
