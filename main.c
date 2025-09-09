@@ -45,15 +45,17 @@ int main(int argc, char **argv){
 			append_node(&arr[i], buffer[foo]);
 			foo++;
 		}
-		foo++;
-
+		if(buffer[foo] == '\n'){
+			append_node(&arr[i], '\n');
+			foo++;
+		}
 	}
 
 	initscr();
 	
 	for (int i=0; i < lines_buffer; ++i){
 		node *fakie = arr[i];
-		while(fakie->next != NULL){
+		while(fakie != NULL){
 			printw("%c", fakie->data);
 			fakie = fakie->next;
 		}
