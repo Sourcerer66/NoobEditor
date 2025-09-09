@@ -38,15 +38,16 @@ int main(int argc, char **argv){
 	int size_buffer = strlen(buffer);
 	node *arr[lines_buffer];
 	int foo = 0;
-	//essa loop esta super incompleto, irei chorar...
-	for (int i = 0; i < size_buffer; ++i){
-		append_node(arr[i],buffer[i]);
-		if (buffer[i] == '\n'){
+	//ta mais completo mas falta algo ainda...
+	//continua dando erro!!!
+	for (int i = 0; i < lines_buffer; ++i){
+		while(buffer[foo] != '\n'){
+			append_node(&arr[i], buffer[foo]);
 			foo++;
 		}
+		foo++;
 
 	}
-	int current = 0;
 
 	initscr();
 	
@@ -82,11 +83,13 @@ node* create_node(int c){
 
 void append_node(node **head, int c){
 	node *new_node = create_node(c);
+	//checa se a head que voce passa para a função é NULL e se for só seta ela para a nova node
 	if(*head == NULL){
 		*head = new_node;
 		return;
 	}
 	node *temp = *head;
+	//chegando ao final da linked list para appenda a node
 	while(temp->next != NULL){
 		temp = temp->next;	
 	}
