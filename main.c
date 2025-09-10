@@ -39,6 +39,10 @@ int main(int argc, char **argv){
 	node *arr[lines_buffer];
 	int foo = 0;
 	//08/09/2025 EUREKAAAAA!!!!!
+	//
+	//construir sistema que guarda o caractere atual que voce esta qnd vc vai para outra linha
+	//aplicar sistema completo de movimento pelo arquivo...
+	//
 	for (int i = 0; i < lines_buffer; ++i){
 		arr[i] = NULL;
 		while(buffer[foo] != '\n'){
@@ -52,7 +56,10 @@ int main(int argc, char **argv){
 	}
 
 	initscr();
-	
+	noecho();
+	raw();
+	cbreak();
+		
 	for (int i=0; i < lines_buffer; ++i){
 		node *fakie = arr[i];
 		while(fakie != NULL){
@@ -60,6 +67,13 @@ int main(int argc, char **argv){
 			fakie = fakie->next;
 		}
 	}
+	
+	//
+	//while(c = getch() != KEY_F(1)){
+	//
+	//}
+	//
+	
 	getch();	
 	endwin();
 	return 0;
