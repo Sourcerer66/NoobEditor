@@ -59,7 +59,7 @@ int main(int argc, char **argv){
 	noecho();
 	raw();
 	cbreak();
-		
+	keypad(stdscr, TRUE);
 	for (int i=0; i < lines_buffer; ++i){
 		node *fakie = arr[i];
 		while(fakie != NULL){
@@ -68,8 +68,22 @@ int main(int argc, char **argv){
 		}
 	}
 	
+	//int ch;
+	//while(ch = getch() != KEY_F(1)){
+	//	switch(ch){
+	//	case KEY_BACKSPACE:
+	//	break;
 	//
-	//while(c = getch() != KEY_F(1)){
+	//	case:
+	//	break;
+	//
+	//	case:
+	//	break;
+	//
+	//	default:
+	//	break;
+	//
+	//	}
 	//
 	//}
 	//
