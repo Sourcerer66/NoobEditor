@@ -74,10 +74,10 @@ int main(int argc, char **argv){
 	//	case KEY_BACKSPACE:
 	//	break;
 	//
-	//	case:
+	//	case '\t':
 	//	break;
 	//
-	//	case:
+	//	case '\n':
 	//	break;
 	//
 	//	default:
