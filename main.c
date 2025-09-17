@@ -17,43 +17,17 @@ node* create_node(int c);
 
 void append_node(node **head, int c);
 
+void get_text(char name[], node *arr0[], int *lines, int *size);
+
 int main(int argc, char **argv){
 	if(argc < 2){
 		perror("Sem argumentos suficientes...");
 		exit(1);
 	}
-	FILE *f = fopen(argv[1], "r");
-	
-	if(f ==NULL){
-		perror("Arquivo nao exite...");
-		exit(1);
-	}
-
-	char buffer[1024] = {0};
-
-	fread(buffer, 1024, 1, f);
-	fclose(f);
-	//colocar \0 no final do buffer...
-	int lines_buffer = get_lines(buffer);
-	int size_buffer = strlen(buffer);
-	node *arr[lines_buffer];
-	int foo = 0;
-	//08/09/2025 EUREKAAAAA!!!!!
-	//
-	//construir sistema que guarda o caractere atual que voce esta qnd vc vai para outra linha
-	//aplicar sistema completo de movimento pelo arquivo...
-	//
-	for (int i = 0; i < lines_buffer; ++i){
-		arr[i] = NULL;
-		while(buffer[foo] != '\n'){
-			append_node(&arr[i], buffer[foo]);
-			foo++;
-		}
-		if(buffer[foo] == '\n'){
-			append_node(&arr[i], '\n');
-			foo++;
-		}
-	}
+	int size_buffer = 0;
+	int lines_buffer = 0;
+	node *arr[1024];
+	get_text(argv[1], arr, &lines_buffer, &size_buffer);
 
 	initscr();
 	noecho();
@@ -74,10 +48,10 @@ int main(int argc, char **argv){
 	//	case KEY_BACKSPACE:
 	//	break;
 	//
-	//	case '\t':
+	//	case KEY_LEFT:
 	//	break;
 	//
-	//	case '\n':
+	//	case KEY_RIGHT:
 	//	break;
 	//
 	//	default:
@@ -125,4 +99,38 @@ void append_node(node **head, int c){
 	}
 	temp->next = new_node;
 	new_node->prev = temp;
+}
+
+void get_text(char name[], node *arr[], int *lines, int *size){
+	FILE *f = fopen(name, "r");
+	
+	if(f ==NULL){
+		perror("Arquivo nao exite...");
+		exit(1);
+	}
+	
+	char buffer[2048] = {0};
+
+	fread(buffer, 2048, 1, f);
+	fclose(f);
+	//colocar \0 no final do buffer...
+	*lines = get_lines(buffer);
+	*size = strlen(buffer);
+	int foo = 0;
+	//08/09/2025 EUREKAAAAA!!!!!
+	//
+	//construir sistema que guarda o caractere atual que voce esta qnd vc vai para outra linha
+	//aplicar sistema completo de movimento pelo arquivo...
+	//
+	for (int i = 0; i < *lines; ++i){
+		arr[i] = NULL;
+		while(buffer[foo] != '\n'){
+			append_node(&arr[i], buffer[foo]);
+			foo++;
+		}
+		if(buffer[foo] == '\n'){
+			append_node(&arr[i], '\n');
+			foo++;
+		}
+	}
 }
