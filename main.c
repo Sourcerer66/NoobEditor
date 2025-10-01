@@ -19,6 +19,8 @@ void append_node(node **head, int c);
 
 void get_text(char name[], node *arr0[], int *lines, int *size);
 
+int get_size_file(FILE *f);
+
 int main(int argc, char **argv){
 	if(argc < 2){
 		perror("Sem argumentos suficientes...");
@@ -28,42 +30,13 @@ int main(int argc, char **argv){
 	int lines_buffer = 0;
 	node *arr[1024];
 	get_text(argv[1], arr, &lines_buffer, &size_buffer);
-
-	initscr();
-	noecho();
-	raw();
-	cbreak();
-	keypad(stdscr, TRUE);
 	for (int i=0; i < lines_buffer; ++i){
 		node *fakie = arr[i];
 		while(fakie != NULL){
-			printw("%c", fakie->data);
+			printf("%c", fakie->data);
 			fakie = fakie->next;
 		}
 	}
-	
-	//int ch;
-	//while(ch = getch() != KEY_F(1)){
-	//	switch(ch){
-	//	case KEY_BACKSPACE:
-	//	break;
-	//
-	//	case KEY_LEFT:
-	//	break;
-	//
-	//	case KEY_RIGHT:
-	//	break;
-	//
-	//	default:
-	//	break;
-	//
-	//	}
-	//
-	//}
-	//
-	
-	getch();	
-	endwin();
 	return 0;
 }
 
@@ -103,15 +76,15 @@ void append_node(node **head, int c){
 
 void get_text(char name[], node *arr[], int *lines, int *size){
 	FILE *f = fopen(name, "r");
-	
+
 	if(f ==NULL){
 		perror("Arquivo nao exite...");
 		exit(1);
 	}
-	
-	char buffer[2048] = {0};
 
-	fread(buffer, 2048, 1, f);
+	char buffer[4096] = {0};
+
+	fread(buffer, 4096, 1, f);
 	fclose(f);
 	//colocar \0 no final do buffer...
 	*lines = get_lines(buffer);
