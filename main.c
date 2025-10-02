@@ -37,6 +37,11 @@ int main(int argc, char **argv){
 			fakie = fakie->next;
 		}
 	}
+	int l_edit = 0;
+	char new_text[256];
+	scanf("%d", &l_edit);
+	scanf("%s", new_text);
+
 	return 0;
 }
 
