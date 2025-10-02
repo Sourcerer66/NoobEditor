@@ -21,6 +21,10 @@ void get_text(char name[], node *arr0[], int *lines, int *size);
 
 int get_size_file(FILE *f);
 
+void edit_line(int line, node **arr, int size);
+
+void write_file(node **arr, int size);
+
 int main(int argc, char **argv){
 	if(argc < 2){
 		perror("Sem argumentos suficientes...");
@@ -111,4 +115,12 @@ void get_text(char name[], node *arr[], int *lines, int *size){
 			foo++;
 		}
 	}
+}
+
+void edit_line(int line, node **arr, int size){
+
+}
+
+void write_file(node **arr, int size){
+
 }
