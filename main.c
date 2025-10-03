@@ -21,9 +21,11 @@ void get_text(char name[], node *arr0[], int *lines, int *size);
 
 int get_size_file(FILE *f);
 
-void edit_line(int line, node **arr, int size);
+void edit_line(int line, node *new_node, node **arr, int size);
 
-void write_file(node **arr, int size);
+void write_file(char name[], node **arr, int size);
+
+node* ston(char text[]);
 
 int main(int argc, char **argv){
 	if(argc < 2){
@@ -46,6 +48,16 @@ int main(int argc, char **argv){
 	scanf("%d", &l_edit);
 	scanf("%s", new_text);
 
+	edit_line(l_edit, ston(new_text), arr, lines_buffer);
+
+	for (int i=0; i < lines_buffer; ++i){
+		node *fakie = arr[i];
+		while(fakie != NULL){
+			printf("%c", fakie->data);
+			fakie = fakie->next;
+		}
+	}
+	write_file(argv[1], arr, lines_buffer);
 	return 0;
 }
 
@@ -117,10 +129,36 @@ void get_text(char name[], node *arr[], int *lines, int *size){
 	}
 }
 
-void edit_line(int line, node **arr, int size){
-
+void edit_line(int line, node *new_node, node **arr, int size){
+	if(line < size){
+		append_node(&new_node, '\n');
+		arr[line - 1] = new_node;
+	}
 }
 
-void write_file(node **arr, int size){
+void write_file(char name[], node **arr, int size){
+	FILE *f = fopen(name, "w");
+	for(int i = 0; i < size; ++i){
+		node *fk = arr[i];
+		while(fk != NULL){
+			fprintf(f, "%c", fk->data);
+			fk = fk->next;
+		}
+	}
+	fclose(f);
+}
 
+node* ston(char text[]){
+	int size = strlen(text);
+	node *n = (node*)malloc(sizeof(node));
+	node *fk = n;
+	node *pr = n;
+	for(int i = 0; i < size; ++i){
+		fk->data = text[i];
+		fk->next = (node*)malloc(sizeof(node));
+		fk = fk->next;
+		fk->prev = pr;
+		pr = fk;
+	}
+	return n;
 }
