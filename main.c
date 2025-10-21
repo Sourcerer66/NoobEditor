@@ -2,9 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <ncurses.h>
-
-
 typedef struct Node{
 	int data;
 	struct Node* next;
@@ -26,6 +23,14 @@ void edit_line(int line, node *new_node, node **arr, int size);
 void write_file(char name[], node **arr, int size);
 
 node* ston(char text[]);
+
+void pop_back_node(node* n){
+	node *fk = n;
+	while(fk->next != NULL){
+		fk = fk->next;
+	}
+	fk = NULL;
+}
 
 int main(int argc, char **argv){
 	if(argc < 2){
@@ -49,7 +54,6 @@ int main(int argc, char **argv){
 	scanf("%s", new_text);
 
 	edit_line(l_edit, ston(new_text), arr, lines_buffer);
-
 	for (int i=0; i < lines_buffer; ++i){
 		node *fakie = arr[i];
 		while(fakie != NULL){
